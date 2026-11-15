@@ -1,0 +1,31 @@
+[
+  {
+    "catatan": "SELURUH DATA DALAM BERKAS INI ADALAH CONTOH SINTETIS, BUKAN INVENTARIS KEJARI INDRAGIRI HULU.",
+    "kode_barang": "3.10.01.01.001",
+    "nup": "0001",
+    "nama_barang": "Laptop operasional",
+    "kategori": "Peralatan TI",
+    "merek_model": "Contoh Laptop 14 inci",
+    "serial_number": "DEMO-LPT-001",
+    "tahun_perolehan": 2024,
+    "nilai_perolehan": 18500000,
+    "lokasi": "Ruang Tata Usaha",
+    "penanggung_jawab": "Pengurus Barang",
+    "kondisi": "Baik",
+    "status": "Aktif"
+  },
+  {
+    "kode_barang": "3.10.02.01.003",
+    "nup": "0003",
+    "nama_barang": "Printer laser",
+    "kategori": "Peralatan Kantor",
+    "merek_model": "Contoh Printer Mono",
+    "serial_number": "DEMO-PRT-003",
+    "tahun_perolehan": 2022,
+    "nilai_perolehan": 4250000,
+    "lokasi": "Ruang PTSP",
+    "penanggung_jawab": "Operator PTSP",
+    "kondisi": "Rusak Ringan",
+    "status": "Aktif"
+  }
+]
