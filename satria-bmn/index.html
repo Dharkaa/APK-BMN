@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SATRIA BMN — prototipe pengelolaan inventaris, QR Code, kondisi aset, dan laporan untuk Kejari Indragiri Hulu."
+    />
+    <title>SATRIA BMN | Kejari Indragiri Hulu</title>
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Lewati navigasi</a>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigasi utama">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="brand-mark__grid"></span>
+            <span class="brand-mark__shield">S</span>
+          </div>
+          <div>
+            <p class="brand-name">SATRIA <span>BMN</span></p>
+            <p class="brand-subtitle">Kejari Indragiri Hulu</p>
+          </div>
+        </div>
+
+        <p class="nav-label">Menu utama</p>
+        <nav class="side-nav" id="side-nav">
+          <button class="nav-item is-active" data-route="dashboard" type="button">
+            <span class="nav-icon" aria-hidden="true">⌂</span><span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-route="inventory" type="button">
+            <span class="nav-icon" aria-hidden="true">▦</span><span>Inventaris BMN</span>
+          </button>
+          <button class="nav-item" data-route="monitoring" type="button">
+            <span class="nav-icon" aria-hidden="true">◌</span><span>Monitoring kondisi</span>
+          </button>
+          <button class="nav-item" data-route="reports" type="button">
+            <span class="nav-icon" aria-hidden="true">▤</span><span>Laporan</span>
+          </button>
+          <button class="nav-item" data-route="import" type="button">
+            <span class="nav-icon" aria-hidden="true">⇧</span><span>Impor data</span>
+          </button>
+          <button class="nav-item" data-route="audit" type="button">
+            <span class="nav-icon" aria-hidden="true">◷</span><span>Jejak aktivitas</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="internal-badge"><span aria-hidden="true"></span> Akses internal</div>
+          <p>Prototipe lokal v0.1</p>
+        </div>
+      </aside>
+
+      <div class="mobile-topbar">
+        <button class="icon-button" id="mobile-menu-button" aria-label="Buka menu" type="button">☰</button>
+        <div class="mobile-brand">SATRIA <span>BMN</span></div>
+        <button class="icon-button" id="mobile-qr-button" aria-label="Pindai QR aset" type="button">⌁</button>
+      </div>
+
+      <main id="main-content" class="main-content" tabindex="-1">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="page-eyebrow">Bidang Pembinaan</p>
+            <h1 id="page-title">Dashboard aset</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="scan-button" id="scan-qr-button" type="button">
+              <span aria-hidden="true">⌁</span> Pindai QR
+            </button>
+            <div class="profile-chip" aria-label="Sesi prototipe sebagai Operator BMN">
+              <span class="profile-avatar" aria-hidden="true">OB</span>
+              <div>
+                <strong>Operator BMN</strong>
+                <span>Mode uji lokal</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="prototype-notice" role="status">
+          <span aria-hidden="true">i</span>
+          <p><strong>Mode prototipe lokal.</strong> Data awal adalah contoh sintetis; impor inventaris yang telah diverifikasi sebelum digunakan untuk operasional.</p>
+          <button id="dismiss-notice" type="button" aria-label="Tutup pemberitahuan">×</button>
+        </div>
+
+        <section class="page-section is-visible" id="dashboard-page" data-page="dashboard">
+          <div class="dashboard-heading">
+            <div>
+              <h2>Ringkasan inventaris</h2>
+              <p id="dashboard-date">Memuat data lokal…</p>
+            </div>
+            <button class="button button--primary" id="dashboard-add-asset" type="button">+ Tambah aset</button>
+          </div>
+
+          <div class="metric-grid" id="metric-grid" aria-live="polite"></div>
+
+          <div class="dashboard-grid dashboard-grid--wide">
+            <article class="panel panel--condition">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-kicker">Kondisi aset</p>
+                  <h2>Distribusi kondisi terkini</h2>
+                </div>
+                <button class="text-button" data-route="monitoring" type="button">Lihat monitoring →</button>
+              </div>
+              <div id="condition-chart" class="condition-chart" aria-label="Grafik distribusi kondisi aset"></div>
+            </article>
+            <article class="panel panel--attention">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-kicker">Perlu perhatian</p>
+                  <h2>Temuan yang perlu ditindaklanjuti</h2>
+                </div>
+                <span class="count-chip" id="attention-count">0 aset</span>
+              </div>
+              <div id="attention-list" class="attention-list"></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-kicker">Lokasi aset</p>
+                  <h2>Sebaran per ruangan</h2>
+                </div>
+              </div>
+              <div id="location-chart" class="location-chart"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-kicker">Aktivitas terkini</p>
+                  <h2>Jejak perubahan</h2>
+                </div>
+                <button class="text-button" data-route="audit" type="button">Semua aktivitas →</button>
+              </div>
+              <ol id="activity-list" class="activity-list"></ol>
+            </article>
+          </div>
+        </section>
+
+        <section class="page-section" id="inventory-page" data-page="inventory" hidden>
+          <div class="page-heading page-heading--actions">
+            <div>
+              <h2>Inventaris BMN</h2>
+              <p>Temukan, lengkapi, dan kelola data aset beserta label QR-nya.</p>
+            </div>
+            <div class="page-actions">
+              <button class="button button--secondary" id="export-inventory-button" type="button">⇩ Ekspor CSV</button>
+              <button class="button button--primary" id="inventory-add-asset" type="button">+ Tambah aset</button>
+            </div>
+          </div>
+
+          <div class="filter-bar" aria-label="Filter inventaris">
+            <label class="search-control">
+              <span class="sr-only">Cari aset</span>
+              <span aria-hidden="true">⌕</span>
+              <input id="inventory-search" type="search" placeholder="Cari nama, kode, NUP, serial, atau lokasi" autocomplete="off" />
+            </label>
+            <label>
+              <span class="sr-only">Filter kondisi</span>
+              <select id="inventory-condition-filter">
+                <option value="">Semua kondisi</option>
+              </select>
+            </label>
+            <label>
+              <span class="sr-only">Filter lokasi</span>
+              <select id="inventory-location-filter">
+                <option value="">Semua lokasi</option>
+              </select>
+            </label>
+            <button class="button button--ghost" id="inventory-clear-filter" type="button">Reset</button>
+          </div>
+
+          <div class="table-meta"><span id="inventory-result-count">0 aset</span><span>Data tersimpan pada perangkat ini</span></div>
+          <div class="table-wrap">
+            <table class="data-table" id="inventory-table">
+              <thead>
+                <tr>
+                  <th>Aset</th>
+                  <th>Kode / NUP</th>
+                  <th>Lokasi</th>
+                  <th>Kondisi</th>
+                  <th>Pemeriksaan</th>
+                  <th><span class="sr-only">Aksi</span></th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="page-section" id="monitoring-page" data-page="monitoring" hidden>
+          <div class="page-heading page-heading--actions">
+            <div>
+              <h2>Monitoring kondisi</h2>
+              <p>Catat pemeriksaan fisik berkala dan tindak lanjutnya per aset.</p>
+            </div>
+            <button class="button button--secondary" id="monitoring-export-button" type="button">⇩ Ekspor rekap</button>
+          </div>
+          <div class="monitoring-summary" id="monitoring-summary" aria-live="polite"></div>
+          <div class="table-wrap">
+            <table class="data-table" id="monitoring-table">
+              <thead>
+                <tr>
+                  <th>Aset</th>
+                  <th>Lokasi</th>
+                  <th>Kondisi</th>
+                  <th>Pemeriksaan terakhir</th>
+                  <th>Status pemeriksaan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="monitoring-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="page-section" id="reports-page" data-page="reports" hidden>
+          <div class="page-heading page-heading--actions">
+            <div>
+              <h2>Laporan inventaris</h2>
+              <p>Filter dan cetak rekap sesuai kebutuhan administrasi internal.</p>
+            </div>
+            <div class="page-actions report-actions">
+              <button class="button button--secondary" id="report-export-button" type="button">⇩ CSV</button>
+              <button class="button button--primary" id="report-print-button" type="button">▣ Cetak / PDF</button>
+            </div>
+          </div>
+          <div id="report-print-area">
+            <div class="report-filters">
+              <label>Kondisi<select id="report-condition-filter"><option value="">Semua kondisi</option></select></label>
+              <label>Lokasi<select id="report-location-filter"><option value="">Semua lokasi</option></select></label>
+              <label>Status<select id="report-status-filter"><option value="">Semua status</option><option value="Aktif">Aktif</option><option value="Nonaktif">Nonaktif</option></select></label>
+            </div>
+            <div class="report-heading-print">
+              <p>SATRIA BMN · Kejaksaan Negeri Indragiri Hulu</p>
+              <h2>Rekap Inventaris Barang Milik Negara</h2>
+              <span id="report-period-label"></span>
+            </div>
+            <div class="report-stat-grid" id="report-stat-grid"></div>
+            <div class="report-layout">
+              <article class="panel"><h3>Komposisi kondisi</h3><div id="report-condition-chart" class="condition-chart"></div></article>
+              <article class="panel"><h3>Nilai per kategori</h3><div id="report-category-chart" class="location-chart"></div></article>
+            </div>
+            <div class="table-wrap report-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Aset</th><th>Kode/NUP</th><th>Lokasi</th><th>Kondisi</th><th class="align-right">Nilai perolehan</th></tr></thead>
+                <tbody id="report-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-section" id="import-page" data-page="import" hidden>
+          <div class="page-heading">
+            <h2>Impor inventaris</h2>
+            <p>Masukkan data inventaris yang telah disahkan melalui berkas CSV. Sistem memeriksa kolom wajib dan duplikasi sebelum disimpan.</p>
+          </div>
+          <div class="import-layout">
+            <article class="panel import-card">
+              <div class="step-number">1</div>
+              <h3>Unduh dan isi template</h3>
+              <p>Gunakan struktur kolom standar agar data dapat divalidasi dengan konsisten.</p>
+              <button class="button button--secondary" id="download-template-button" type="button">⇩ Unduh template CSV</button>
+              <details>
+                <summary>Kolom wajib</summary>
+                <p><code>kode_barang</code>, <code>nup</code>, <code>nama_barang</code>, <code>lokasi</code>, <code>kondisi</code>, <code>tahun_perolehan</code>, dan <code>nilai_perolehan</code>.</p>
+              </details>
+            </article>
+            <article class="panel import-card">
+              <div class="step-number">2</div>
+              <h3>Pratinjau dan validasi</h3>
+              <p>Data baru tidak akan menimpa inventaris yang sudah ada tanpa proses verifikasi.</p>
+              <label class="file-drop" for="import-file-input">
+                <span aria-hidden="true">⇧</span>
+                <strong>Pilih berkas CSV</strong>
+                <small>Maks. sesuai kebijakan perangkat</small>
+              </label>
+              <input id="import-file-input" type="file" accept=".csv,text/csv" hidden />
+            </article>
+          </div>
+          <div id="import-preview" class="import-preview" hidden></div>
+        </section>
+
+        <section class="page-section" id="audit-page" data-page="audit" hidden>
+          <div class="page-heading page-heading--actions">
+            <div><h2>Jejak aktivitas</h2><p>Riwayat perubahan yang terjadi pada prototipe di perangkat ini.</p></div>
+            <button class="button button--ghost" id="reset-demo-button" type="button">Pulihkan data contoh</button>
+          </div>
+          <div class="audit-note"><span aria-hidden="true">i</span> Pada penerapan produksi, jejak audit wajib tersimpan di server dan tidak dapat diubah melalui antarmuka pengguna.</div>
+          <ol id="audit-list" class="audit-list"></ol>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-layer" id="modal-layer" hidden>
+      <div class="modal-backdrop" data-close-modal="true"></div>
+      <section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" type="button" data-close-modal="true" aria-label="Tutup">×</button>
+        <div id="modal-content"></div>
+      </section>
+    </div>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/qr.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

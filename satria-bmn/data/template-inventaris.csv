@@ -1,0 +1,2 @@
+kode_barang,nup,nama_barang,kategori,merek_model,serial_number,tahun_perolehan,nilai_perolehan,lokasi,penanggung_jawab,kondisi,status,keterangan
+3.10.01.01.001,0001,Contoh nama barang,Peralatan TI,Contoh merek/model,SERIAL-CONTOH,2024,15000000,Contoh ruangan,Contoh penanggung jawab,Baik,Aktif,Hapus baris contoh ini sebelum impor data aktual
